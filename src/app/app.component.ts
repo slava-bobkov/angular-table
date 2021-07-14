@@ -114,7 +114,34 @@ export class AppComponent {
       coordinates: {
         latitude: 48.6266498,
         longitude: 8.924629399999999
-      }
+      },
+      'nested-table': [
+        {
+          installationId: '1011d1be-8a17-4a6a-8ce3-44d70138d806',
+          marketLocationId: '50222222222',
+          division: 'electricity',
+          meterId: '22222222',
+          installationDesignation: 'Straßenbeleuchtung',
+          premiseTypeText: 'Straßenbeleung',
+          referenceNumber: '987654321',
+          reviewState: 'inReview',
+          isNew: false,
+          address: {
+            postalCode: '99999',
+            city: 'Musterkommune',
+            street: 'Talstraße',
+            district: null,
+            streetNumber: '21S',
+            cityExtension: null,
+            streetNumberSuffix: null
+          },
+          clusterId: '9812c805-9ca6-492b-adcf-6c3f4c2b58c5',
+          coordinates: {
+            latitude: 48.6266498,
+            longitude: 8.924629399999999
+          }
+        }
+      ]
     },
     {
       installationId: 'f5111f79-ecc0-4ea0-8522-5684acc4f154',

@@ -1,40 +1,40 @@
-<ng-container matColumnDef [sticky]="columnConfig.sticky" [stickyEnd]="columnConfig.stickyEnd">
+<ng-container matColumnDef [sticky]="_columnConfig.sticky" [stickyEnd]="_columnConfig.stickyEnd">
   <ng-container *ngIf="!headerHidden">
     <th
       *matHeaderCellDef
       mat-header-cell
       mat-sort-header
-      [disabled]="isSortDisabled(sortDisabled, columnConfig.type)"
-      [ngClass]="getColumnClasses(columnConfig)"
-      [ngStyle]="columnConfig.style!"
+      [disabled]="isSortDisabled(sortDisabled, _columnConfig.type)"
+      [ngClass]="getColumnClasses(_columnConfig)"
+      [ngStyle]="_columnConfig.style!"
     >
       <span
         class="textual-cell"
         tooltipIfTruncated
-        [matTooltip]="columnConfig.key | translate"
+        [matTooltip]="_columnConfig.key | translate"
         [matTooltipClass]="'table-tooltip'"
-        [innerHTML]="columnConfig.key | translate"
+        [innerHTML]="_columnConfig.key | translate"
       ></span>
     </th>
   </ng-container>
   <td
     *matCellDef="let row"
     mat-cell
-    [ngClass]="getColumnClasses(columnConfig)"
-    [ngStyle]="columnConfig.style!"
-    (click)="isClickable(columnConfig.type) ? columnAction.emit({ element: null }) : null"
+    [ngClass]="getColumnClasses(_columnConfig)"
+    [ngStyle]="_columnConfig.style!"
+    (click)="isClickable(_columnConfig.type) ? columnAction.emit({ element: null }) : null"
   >
     <ng-container
-      [ngComponentOutlet]="getComponent(columnConfig)"
-      [ngComponentOutletInjector]="getInjector(columnConfig, row)"
+      [ngComponentOutlet]="getComponent(_columnConfig)"
+      [ngComponentOutletInjector]="getInjector(_columnConfig, row)"
     ></ng-container>
   </td>
   <ng-container *ngIf="!footerHidden">
     <td
       *matFooterCellDef
       mat-footer-cell
-      [ngClass]="getColumnClasses(columnConfig)"
-      [ngStyle]="columnConfig.style!"
+      [ngClass]="getColumnClasses(_columnConfig)"
+      [ngStyle]="_columnConfig.style!"
     ></td>
   </ng-container>
 </ng-container>

@@ -20,6 +20,7 @@ export const TABLE_COLUMNS = {
   Image: 'image',
   Badge: 'badge',
   Button: 'button',
+  NestedTable: 'nested-table',
   NotificationSettings: 'notification-settings',
   CombinedValues: 'combined-values',
   Custom: 'custom'

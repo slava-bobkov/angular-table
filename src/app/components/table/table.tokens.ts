@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { TablePagingService } from './services/table-paging-service';
+import { TablePagingService } from './classes/table-paging-service';
 
 export const TABLE_VALUE_FORMAT = new InjectionToken<string>('Digits format for values');
 

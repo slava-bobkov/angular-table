@@ -2,7 +2,9 @@
 <ngmy-table
   [disableSort]="false"
   [hideHeader]="false"
+  [expandable]="true"
   [columnsConfig]="columnsConfig"
+  [nestedColumnsConfig]="columnsConfig"
   [pagingConfig]="{ pageSize: 10 }"
   [data]="data"
   (tableAction)="onTableAction($event)"

@@ -5,23 +5,23 @@ export class TableDataSource<
   T extends { [key: string]: any } = object
 > extends MatTableDataSource<T> {
   private propertiesAccessorsMap!: ReadonlyMap<string, TableColumnConfig['propertyAccessor']>;
-  private _columnsConfigs: Array<TableColumnConfig> = [];
+  private _columnsConfig: Array<TableColumnConfig> = [];
 
   constructor(initialData: Array<T> = []) {
     super(initialData);
   }
 
-  public get columnsConfigs(): Array<TableColumnConfig> {
-    return this._columnsConfigs;
+  public get columnsConfig(): Array<TableColumnConfig> {
+    return this._columnsConfig;
   }
 
-  public set columnsConfigs(columns: Array<TableColumnConfig>) {
+  public set columnsConfig(columns: Array<TableColumnConfig>) {
     this.propertiesAccessorsMap = new Map(
       columns
         .filter(({ propertyAccessor }) => propertyAccessor)
         .map(({ id, propertyAccessor }) => [id, propertyAccessor])
     );
-    this._columnsConfigs = columns;
+    this._columnsConfig = columns;
   }
   /**
    * Data accessor function that is used for accessing data properties for sorting through
@@ -50,7 +50,7 @@ export class TableDataSource<
    */
   public filterPredicate = (data: T, filter: string): boolean => {
     // Transform the data into a lowercase string of all property values.
-    const dataStr = this.columnsConfigs
+    const dataStr = this.columnsConfig
       .map(({ id }) => id)
       .reduce((currentTerm: string, key: string) => {
         const value = this.propertiesAccessorsMap.has(key)

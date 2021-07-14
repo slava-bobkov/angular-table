@@ -10,6 +10,7 @@
     [matSortDisabled]="_sortDisabled"
     [matSortDirection]="sortDirection"
     [matSortActive]="sortActive"
+    [multiTemplateDataRows]="multiTemplateDataRows"
     [dataSource]="dataSource"
   >
     <ng-container *ngFor="let columnConfig of _columnsConfig; trackBy: trackById">
@@ -21,10 +22,20 @@
         (columnAction)="tableAction.emit($event)"
       ></ngmy-column-composer>
     </ng-container>
+    <ng-container *ngIf="!!nestedColumnsConfig">
+      <ngmy-nested-table-column
+        [name]="'nested-table'"
+        [columnsConfig]="nestedColumnsConfig"
+        (columnAction)="tableAction.emit($event)"
+      ></ngmy-nested-table-column>
+    </ng-container>
     <ng-container *ngIf="!headerHidden">
       <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     </ng-container>
     <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    <ng-container *ngIf="!!nestedColumnsToDisplay && multiTemplateDataRows">
+      <tr mat-row *matRowDef="let row; columns: ['nested-table']"></tr>
+    </ng-container>
     <ng-container *ngIf="!footerHidden">
       <tr mat-footer-row *matFooterRowDef="columnsToDisplay"></tr>
     </ng-container>

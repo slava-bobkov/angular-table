@@ -2,6 +2,10 @@
   width: 100%;
 }
 
+.mat-table ::ng-deep .nested-table-column .mat-cell {
+  padding: 0;
+}
+
 :host ::ng-deep .table-filter {
   background-color: var(--ene-color-grey-50);
   margin-bottom: 1rem;

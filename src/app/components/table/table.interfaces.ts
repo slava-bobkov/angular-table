@@ -37,14 +37,16 @@ export interface TableColumnConfig {
     key?: string;
     value?: number;
   };
+  /** Icon for column type = 'action' when row selected */
+  selectedIcon?: string;
+  /** Nested table */
+  nested?: Array<TableColumnConfig>;
   /** Custom template for table cell */
   customComponent?: Type<any>;
   /** Custom property accessor if default cant be use */
   propertyAccessor?: (data: unknown, id: string) => string | number;
   /** Custom button column accessor for disabling */
   buttonDisabledAccessor?: (data: unknown) => boolean;
-  /** Icon for column type = 'action' when row selected */
-  selectedIcon?: string;
 }
 
 export interface TableAction<T> {

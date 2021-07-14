@@ -17,7 +17,7 @@ import { asyncScheduler, BehaviorSubject, combineLatest, Observable, Subscriptio
 import { map, observeOn, switchMap, tap } from 'rxjs/operators';
 import { TableDataSource } from '../classes/table-data-source';
 import { TablePaginatorComponent } from '../components/table-paginator/table-paginator.component';
-import { TablePagingService } from '../services/table-paging-service';
+import { TablePagingService } from '../classes/table-paging-service';
 import { TableColumnConfig, TableAction, TablePagingConfig } from '../table.interfaces';
 import { TABLE_PAGING_SERVICE } from '../table.tokens';
 
@@ -33,16 +33,16 @@ export class TableComponent<T extends { [key: string]: any } = object>
   @Input() public sortActive: string = '';
   @Input() public sortDirection: 'desc' | 'asc' = 'desc';
   @Input('disableSort')
-  public set sortDisabled(value: boolean) {
-    this._sortDisabled = value;
-    this.sortRefSubject.next(value);
+  public set sortDisabled(disabled: boolean) {
+    this._sortDisabled = disabled;
+    this.sortRefSubject.next(disabled);
   }
   public _sortDisabled: boolean = true;
 
   @Input()
-  public set pagingConfig(value: TablePagingConfig) {
-    this._pagingConfig = value;
-    this.paginatorRefSubject.next(Boolean(value));
+  public set pagingConfig(config: TablePagingConfig) {
+    this._pagingConfig = config;
+    this.paginatorRefSubject.next(!!config);
   }
   public _pagingConfig: TablePagingConfig | undefined;
 
@@ -52,18 +52,21 @@ export class TableComponent<T extends { [key: string]: any } = object>
 
     this.columnsToDisplay = config.map(({ id }) => id);
     this.footerHidden = !config.find(({ footer }) => !!footer);
+    this.dataSource.columnsConfig = config;
   }
-  public _columnsConfig: Array<TableColumnConfig> | undefined;
+  public _columnsConfig!: Array<TableColumnConfig>;
+
+  @Input() public nestedColumnsConfig: Array<TableColumnConfig> | undefined;
 
   @Input()
-  public set data(_data: Array<T> | undefined) {
-    this.dataSubject.next(_data);
+  public set data(data: Array<T> | undefined) {
+    this.dataSubject.next(data);
   }
 
   @Input('disableFilter') public filterDisabled: boolean = false;
   @Input('filterLabel') public filterLabel: string = 'FRAMEWORK.TABLE.FILTER';
-
   @Input('hideHeader') public headerHidden: boolean = false;
+  @Input('expandable') public multiTemplateDataRows: boolean = false;
   @Input() public scrollableX: boolean = false;
   @Input() public scrollableY: boolean = false;
 
@@ -77,9 +80,13 @@ export class TableComponent<T extends { [key: string]: any } = object>
     | TablePaginatorComponent
     | undefined;
 
+  public nestedColumnsToDisplay: Array<string> = [];
   public columnsToDisplay: Array<string> = [];
-  public columnsStyleConfig!: Record<string, Array<string>>;
   public readonly dataSource = new TableDataSource<T>([]);
+
+  public get attrColspan(): number {
+    return this.columnsToDisplay.length || 1;
+  }
 
   private readonly paginatorRefSubject = new BehaviorSubject<boolean>(false);
   private readonly sortRefSubject = new BehaviorSubject<boolean>(false);

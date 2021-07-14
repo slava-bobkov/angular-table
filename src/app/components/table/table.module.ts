@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
-import { ColumnComposerComponent } from './components/column-composer/column-composer.component';
 import { TableComponent } from './container/table.component';
 import { TableFilterComponent } from './components/table-filter/table-filter.component';
 import { TablePaginatorComponent } from './components/table-paginator/table-paginator.component';
@@ -14,6 +13,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
 import { EneButtonModule } from '@enersis/ui-button';
 import { TABLE_VALUE_FORMAT } from './table.tokens';
+import { PaginatorIntl } from './classes/paginator-intl';
+import { ColumnComposerComponent } from './components/column-composer/column-composer.component';
+
 import { IconColumnComponent } from './components/columns/icon-column/icon-column.component';
 import { StateColumnComponent } from './components/columns/state-column/state-column.component';
 import { ImageColumnComponent } from './components/columns/image-column/image-column.component';
@@ -21,7 +23,7 @@ import { BadgeColumnComponent } from './components/columns/badge-column/badge-co
 import { CombinedValuesColumnComponent } from './components/columns/combined-values-column/combined-values-column.component';
 import { TextualColumnComponent } from './components/columns/textual-column/textual-column.component';
 import { ActionColumnComponent } from './components/columns/action-column/action-column.component';
-import { PaginatorIntl } from './classes/paginator-intl';
+import { NestedTableColumnComponent } from './components/columns/nested-table-column/nested-table-column.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { PaginatorIntl } from './classes/paginator-intl';
     ImageColumnComponent,
     BadgeColumnComponent,
     CombinedValuesColumnComponent,
-    ActionColumnComponent
+    ActionColumnComponent,
+    NestedTableColumnComponent
   ],
   imports: [
     CommonModule,

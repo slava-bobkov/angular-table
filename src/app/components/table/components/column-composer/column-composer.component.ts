@@ -9,7 +9,6 @@ import {
   Output,
   Type,
   ViewChild,
-  ViewContainerRef,
   ViewEncapsulation
 } from '@angular/core';
 import {
@@ -20,6 +19,7 @@ import {
 } from '@angular/material/table';
 import { Pure } from 'src/app/decorators/pure';
 import { TableComponent } from '../../container/table.component';
+import { TableService } from '../../services/table.service';
 import {
   TABLE_COLUMN_CONTEXT,
   TABLE_COLUMNS,
@@ -35,12 +35,9 @@ import { TableColumn, TableColumnConfig, TableAction } from '../../table.interfa
 })
 export class ColumnComposerComponent<T extends { [key: string]: any } = object> implements OnInit {
   @Input()
-  public get columnConfig(): TableColumnConfig {
-    return this._columnConfig;
-  }
   public set columnConfig(config: TableColumnConfig) {
     this._columnConfig = config;
-    this.syncColumnDef();
+    this.tableService.syncColumnDef(this.columnDef, config.id);
   }
   public _columnConfig!: TableColumnConfig;
 
@@ -54,31 +51,29 @@ export class ColumnComposerComponent<T extends { [key: string]: any } = object> 
   @ViewChild(MatHeaderCellDef, { static: true }) public headerCellDef!: MatHeaderCellDef;
   @ViewChild(MatFooterCellDef, { static: true }) public footerCellDef!: MatFooterCellDef;
   @ViewChild(MatCellDef, { static: true }) public cellDef!: MatCellDef;
-  @ViewChild('vc', { read: ViewContainerRef }) public vc!: ViewContainerRef;
 
   public component: Type<unknown> | undefined;
   public componentInjector: Injector | undefined;
 
   constructor(
     @Optional() private readonly table: TableComponent,
-    private readonly injector: Injector
+    private readonly injector: Injector,
+    private readonly tableService: TableService
   ) {}
 
   public ngOnInit(): void {
-    this.syncColumnDef();
-
-    if (this.table) {
-      this.columnDef.headerCell = this.headerCellDef;
-      this.columnDef.footerCell = this.footerCellDef;
-      this.columnDef.cell = this.cellDef;
-      this.table.matTable.addColumnDef(this.columnDef);
-    }
+    this.tableService.syncColumnDef(this.columnDef, this._columnConfig.id);
+    this.tableService.addColumnDef(
+      this.table,
+      this.columnDef,
+      this.cellDef,
+      this.headerCellDef,
+      this.footerCellDef
+    );
   }
 
   public ngOnDestroy(): void {
-    if (this.table) {
-      this.table.matTable.removeColumnDef(this.columnDef);
-    }
+    this.tableService.removeColumnDef(this.table, this.columnDef);
   }
 
   public isSortDisabled(disabled: boolean, type: TableColumn): boolean {
@@ -113,12 +108,5 @@ export class ColumnComposerComponent<T extends { [key: string]: any } = object> 
         }
       ]
     });
-  }
-
-  private syncColumnDef(): void {
-    if (this.columnDef) {
-      // 'name' from cdk interface - id from component interface
-      this.columnDef.name = this.columnConfig.id;
-    }
   }
 }
