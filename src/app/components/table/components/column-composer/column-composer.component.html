@@ -29,10 +29,12 @@
       [ngComponentOutletInjector]="getInjector(columnConfig, row)"
     ></ng-container>
   </td>
-  <td
-    *matFooterCellDef
-    mat-footer-cell
-    [ngClass]="getColumnClasses(columnConfig)"
-    [ngStyle]="columnConfig.style!"
-  ></td>
+  <ng-container *ngIf="!footerHidden">
+    <td
+      *matFooterCellDef
+      mat-footer-cell
+      [ngClass]="getColumnClasses(columnConfig)"
+      [ngStyle]="columnConfig.style!"
+    ></td>
+  </ng-container>
 </ng-container>

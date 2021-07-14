@@ -16,6 +16,7 @@
       <ngmy-column-composer
         [columnConfig]="columnConfig"
         [hideHeader]="headerHidden"
+        [hideFooter]="footerHidden"
         [sortDisabled]="_sortDisabled"
         (columnAction)="tableAction.emit($event)"
       ></ngmy-column-composer>
@@ -24,7 +25,9 @@
       <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
     </ng-container>
     <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
-    <tr mat-footer-row *matFooterRowDef="columnsToDisplay"></tr>
+    <ng-container *ngIf="!footerHidden">
+      <tr mat-footer-row *matFooterRowDef="columnsToDisplay"></tr>
+    </ng-container>
   </table>
 </div>
 <ngmy-table-paginator *ngIf="!!_pagingConfig" [config]="_pagingConfig"></ngmy-table-paginator>

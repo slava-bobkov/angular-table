@@ -11,8 +11,7 @@ export interface TableColumnConfig {
   /** Date format for date representation which will be used for type = 'date' */
   dateFormat?: string;
   /** Additional column css selectors */
-  columnStyles?: Array<never>;
-  // columnStyles?: TableColumnStyle | Array<TableColumnStyle>;
+  classes?: Array<string> | string;
   /** Column style object for ngStyle */
   style?: { [klass: string]: any };
   /** Configuration for sticky column at start */
@@ -20,13 +19,24 @@ export interface TableColumnConfig {
   /** Configuration for sticky column at the end */
   stickyEnd?: boolean;
   /** Column items which will be used for type = 'combined-values' */
-  // combinedValues?: Array<ITableCombinedValue>;
+  combinedValues?: Array<{
+    /** Corresponds to a key of the objects in the data array */
+    id: string;
+    /** Template type for the cells in the column */
+    type: TableColumn;
+    /** Show tooltip on hover */
+    tooltip?: boolean;
+  }>;
   /** Icon for column type = 'action' */
   actionIcon?: string;
   /** Textual content for column type = 'action' */
   actionLabel?: string;
   /** Footer options */
-  // footer?: ITableFooter;
+  footer?: {
+    type: 'text' | 'value';
+    key?: string;
+    value?: number;
+  };
   /** Custom template for table cell */
   customComponent?: Type<any>;
   /** Custom property accessor if default cant be use */
@@ -37,7 +47,7 @@ export interface TableColumnConfig {
   selectedIcon?: string;
 }
 
-export interface TableAction<T extends object> {
+export interface TableAction<T> {
   element: T;
   [key: string]: any;
 }
@@ -49,7 +59,7 @@ export interface TableColumnContext {
 
 export type TableColumn = typeof TABLE_COLUMNS[keyof typeof TABLE_COLUMNS];
 
-export interface TablePagingMetadata<T extends object> {
+export interface TablePagingMetadata<T> {
   total: number;
   data: Array<T>;
 }

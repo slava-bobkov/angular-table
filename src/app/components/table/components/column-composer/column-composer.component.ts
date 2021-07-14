@@ -46,6 +46,7 @@ export class ColumnComposerComponent<T extends { [key: string]: any } = object> 
 
   @Input() public sortDisabled: boolean = true;
   @Input('hideHeader') public headerHidden: boolean = false;
+  @Input('hideFooter') public footerHidden: boolean = true;
 
   @Output() public readonly columnAction = new EventEmitter<TableAction<any>>();
 
@@ -89,8 +90,8 @@ export class ColumnComposerComponent<T extends { [key: string]: any } = object> 
   }
 
   @Pure
-  public getColumnClasses({ type, columnStyles = [] }: TableColumnConfig): Array<string> {
-    return ([] as Array<string>).concat(`${type}-cell`, columnStyles);
+  public getColumnClasses({ type, classes = [] }: TableColumnConfig): Array<string> {
+    return ([] as Array<string>).concat(`${type}-cell`, classes);
   }
 
   @Pure

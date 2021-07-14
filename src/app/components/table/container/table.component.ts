@@ -47,10 +47,11 @@ export class TableComponent<T extends { [key: string]: any } = object>
   public _pagingConfig: TablePagingConfig | undefined;
 
   @Input()
-  public set columnsConfig(_config: Array<TableColumnConfig>) {
-    this._columnsConfig = _config;
+  public set columnsConfig(config: Array<TableColumnConfig>) {
+    this._columnsConfig = config;
 
-    this.columnsToDisplay = _config.map(({ id }) => id);
+    this.columnsToDisplay = config.map(({ id }) => id);
+    this.footerHidden = !config.find(({ footer }) => !!footer);
   }
   public _columnsConfig: Array<TableColumnConfig> | undefined;
 
@@ -67,6 +68,8 @@ export class TableComponent<T extends { [key: string]: any } = object>
   @Input() public scrollableY: boolean = false;
 
   @Output() public readonly tableAction = new EventEmitter<TableAction<T>>();
+
+  public footerHidden: boolean = true;
 
   @ViewChild(MatTable, { static: true }) public readonly matTable!: MatTable<T>;
   @ViewChild(MatSort, { static: true }) public readonly sortRef!: MatSort;
