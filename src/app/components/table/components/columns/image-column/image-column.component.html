@@ -1,0 +1,4 @@
+<div class="image-column" *ngIf="context.row[context.columnConfig.id]; else imageAlt">
+  <img [src]="context.row[context.columnConfig.id]" />
+</div>
+<ng-template #imageAlt>{{ context.row.alt }}</ng-template>

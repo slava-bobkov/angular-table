@@ -1,0 +1,8 @@
+<span
+  class="textual-column"
+  tooltipIfTruncated
+  [matTooltip]="context.row[context.columnConfig.id] | translate"
+  [matTooltipClass]="'table-tooltip'"
+>
+  {{ transform(context.row[context.columnConfig.id], context.columnConfig) }}
+</span>

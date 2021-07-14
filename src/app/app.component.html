@@ -1,0 +1,9 @@
+<ngmy-header></ngmy-header>
+<ngmy-table
+  [disableSort]="false"
+  [hideHeader]="false"
+  [columnsConfig]="columnsConfig"
+  [pagingConfig]="{ pageSize: 1 }"
+  [data]="data"
+  (tableAction)="onTableAction($event)"
+></ngmy-table>

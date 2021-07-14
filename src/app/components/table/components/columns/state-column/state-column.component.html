@@ -1,0 +1,7 @@
+<span
+  class="state-column"
+  [matTooltip]="'REVIEW_STATE.' + context.row[context.columnConfig.id] | translate"
+  [matTooltipClass]="['table-tooltip', 'light']"
+  [matTooltipDisabled]="!context.row[context.columnConfig.id]"
+  [ngClass]="context.row[context.columnConfig.id]"
+></span>

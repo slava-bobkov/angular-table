@@ -1,0 +1,30 @@
+<table-filter
+  *ngIf="!filterDisabled"
+  [filterLabel]="filterLabel | translate"
+  (filterChanged)="onFilterChange($event)"
+></table-filter>
+<div class="table-wrapper">
+  <table
+    mat-table
+    matSort
+    [matSortDisabled]="_sortDisabled"
+    [matSortDirection]="sortDirection"
+    [matSortActive]="sortActive"
+    [dataSource]="dataSource"
+  >
+    <ng-container *ngFor="let columnConfig of _columnsConfig; trackBy: trackById">
+      <ngmy-column-composer
+        [columnConfig]="columnConfig"
+        [hideHeader]="headerHidden"
+        [sortDisabled]="_sortDisabled"
+        (columnAction)="tableAction.emit($event)"
+      ></ngmy-column-composer>
+    </ng-container>
+    <ng-container *ngIf="!headerHidden">
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    </ng-container>
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    <!-- <tr mat-footer-row *matFooterRowDef="columnsToDisplay"></tr> -->
+  </table>
+</div>
+<ngmy-table-paginator *ngIf="!!_pagingConfig" [config]="_pagingConfig"></ngmy-table-paginator>

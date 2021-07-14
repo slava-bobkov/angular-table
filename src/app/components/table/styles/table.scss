@@ -1,0 +1,69 @@
+.mat-table {
+  width: 100%;
+}
+
+:host ::ng-deep .table-filter {
+  background-color: var(--ene-color-grey-50);
+  margin-bottom: 1rem;
+  width: 100%;
+
+  // TODO(bobkov): Design inconsistence
+  ::ng-deep &.mat-form-field {
+    &.mat-form-field-appearance-legacy {
+      .mat-form-field-infix {
+        padding: 0.5rem;
+      }
+
+      &.mat-form-field-can-float {
+        &.mat-form-field-should-float .mat-form-field-label,
+        .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
+          transform: translate3d(0, -1rem, 0.001px) scale(0.75) perspective(100px);
+        }
+      }
+    }
+  }
+}
+
+:host ::ng-deep .mat-paginator.table-paginator {
+  &.compact {
+    .mat-paginator-range-actions {
+      width: 100%;
+
+      .mat-paginator-range-label {
+        flex: 1;
+      }
+    }
+  }
+
+  .mat-paginator-container {
+    flex-wrap: wrap;
+    min-height: 2.5rem;
+    padding: 0;
+
+    .mat-paginator-page-size {
+      align-items: center;
+
+      .mat-paginator-page-size-label {
+        margin: 0 1rem 0 0;
+      }
+
+      .mat-paginator-page-size-select {
+        height: 2rem;
+        margin: 0;
+      }
+
+      .mat-form-field-infix {
+        background-color: var(--ene-color-grey-50);
+        border-top: 0;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+      }
+    }
+
+    .mat-paginator-range-actions {
+      .mat-paginator-range-label {
+        margin: 0 1rem;
+      }
+    }
+  }
+}

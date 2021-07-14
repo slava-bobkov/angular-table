@@ -1,0 +1,10 @@
+<mat-paginator
+  class="table-paginator"
+  [ngClass]="type"
+  [hidePageSize]="type === 'compact'"
+  [showFirstLastButtons]="type === 'full'"
+  [pageSize]="_config.pageSize"
+  [length]="_config.length"
+  [pageSizeOptions]="_config.pageSizeOptions!"
+  [pageIndex]="_config.pageIndex"
+></mat-paginator>
