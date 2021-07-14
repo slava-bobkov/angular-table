@@ -1,7 +1,17 @@
-<button
-  class="action-column"
-  color="accent"
-  [disabled]="isButtonDisabled(context.columnConfig, context.row)"
->
-  {{ context.columnConfig.actionLabel }}
-</button>
+<ng-container *ngIf="context.columnConfig.actionIcon; else iconButton">
+  <button
+    class="action-column"
+    ene-button
+    [icon]="context.columnConfig.actionIcon"
+    [disabled]="isButtonDisabled(context.columnConfig, context.row)"
+  ></button>
+</ng-container>
+<ng-template #iconButton>
+  <button
+    class="action-column"
+    ene-button
+    [disabled]="isButtonDisabled(context.columnConfig, context.row)"
+  >
+    {{ context.columnConfig.actionLabel }}
+  </button>
+</ng-template>

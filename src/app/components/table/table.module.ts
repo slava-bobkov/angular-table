@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { ColumnComposerComponent } from './components/column-composer/column-composer.component';
 import { TableComponent } from './container/table.component';
@@ -11,6 +12,7 @@ import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginato
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSortModule } from '@angular/material/sort';
+import { EneButtonModule } from '@enersis/ui-button';
 import { TABLE_VALUE_FORMAT } from './table.tokens';
 import { IconColumnComponent } from './components/columns/icon-column/icon-column.component';
 import { StateColumnComponent } from './components/columns/state-column/state-column.component';
@@ -20,7 +22,6 @@ import { CombinedValuesColumnComponent } from './components/columns/combined-val
 import { TextualColumnComponent } from './components/columns/textual-column/textual-column.component';
 import { ActionColumnComponent } from './components/columns/action-column/action-column.component';
 import { PaginatorIntl } from './classes/paginator-intl';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatPaginatorModule,
     MatTooltipModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    EneButtonModule
   ],
   providers: [
     { provide: TABLE_VALUE_FORMAT, useValue: '1.0-0' },

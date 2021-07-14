@@ -68,7 +68,7 @@ export class ColumnComposerComponent<T extends { [key: string]: any } = object> 
 
     if (this.table) {
       this.columnDef.headerCell = this.headerCellDef;
-      this.columnDef.footerCell = this.headerCellDef;
+      this.columnDef.footerCell = this.footerCellDef;
       this.columnDef.cell = this.cellDef;
       this.table.matTable.addColumnDef(this.columnDef);
     }
