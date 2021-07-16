@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { TextualColumnComponent } from './textual-column.component';
+import { TextualColumnComponent } from "./textual-column.component";
 
-describe('TextualColumnComponent', () => {
+describe("TextualColumnComponent", () => {
   let component: TextualColumnComponent;
   let fixture: ComponentFixture<TextualColumnComponent>;
 
@@ -18,7 +18,7 @@ describe('TextualColumnComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

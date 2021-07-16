@@ -1,8 +1,8 @@
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
-import { BehaviorSubject, merge, Observable } from 'rxjs';
-import { mapTo } from 'rxjs/operators';
-import { TablePagingMetadata } from '../table.interfaces';
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
+import { MatSort, Sort } from "@angular/material/sort";
+import { BehaviorSubject, merge, Observable } from "rxjs";
+import { mapTo } from "rxjs/operators";
+import { TablePagingMetadata } from "../table.interfaces";
 
 export abstract class TablePagingService<T extends object> {
   public abstract loadData(): Observable<TablePagingMetadata<T>>;
@@ -65,10 +65,6 @@ export abstract class TablePagingService<T extends object> {
   }
 
   private get initialPageSize(): number {
-    return (
-      (this.paginator!.pageSizeOptions && this.paginator!.pageSizeOptions[0]) ||
-      this.paginator!.pageSize ||
-      10
-    );
+    return (this.paginator!.pageSizeOptions && this.paginator!.pageSizeOptions[0]) || this.paginator!.pageSize || 10;
   }
 }

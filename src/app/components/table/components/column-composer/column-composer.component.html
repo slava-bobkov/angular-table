@@ -24,10 +24,7 @@
     [ngStyle]="_columnConfig.style!"
     (click)="isClickable(_columnConfig.type) ? columnAction.emit({ element: null }) : null"
   >
-    <ng-container
-      [ngComponentOutlet]="getComponent(_columnConfig)"
-      [ngComponentOutletInjector]="getInjector(_columnConfig, row)"
-    ></ng-container>
+    <ngmy-column-resolver [columnConfig]="_columnConfig" [row]="row"></ngmy-column-resolver>
   </td>
   <ng-container *ngIf="!footerHidden">
     <td

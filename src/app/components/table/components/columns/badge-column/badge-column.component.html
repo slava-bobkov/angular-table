@@ -1,5 +1,3 @@
 <span class="badge-column" [ngClass]="context.row[context.columnConfig.id]">
-  {{
-    context.columnConfig.key + "_" + context.row[context.columnConfig.id] | uppercase | translate
-  }}
+  {{ context.row[context.columnConfig.id] | uppercase }}
 </span>

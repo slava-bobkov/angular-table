@@ -1,14 +1,9 @@
-import { Injectable } from '@angular/core';
-import {
-  MatCellDef,
-  MatColumnDef,
-  MatFooterCellDef,
-  MatHeaderCellDef
-} from '@angular/material/table';
-import { TableColumn } from '../classes/table-column';
-import { TableComponent } from '../container/table.component';
+import { Injectable } from "@angular/core";
+import { MatCellDef, MatColumnDef, MatFooterCellDef, MatHeaderCellDef } from "@angular/material/table";
+import { TableColumn } from "../classes/table-column";
+import { TableComponent } from "../container/table.component";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class TableService {
   public addColumnDef(
     table: TableComponent,

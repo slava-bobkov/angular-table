@@ -7,11 +7,7 @@
   ></button>
 </ng-container>
 <ng-template #iconButton>
-  <button
-    class="action-column"
-    ene-button
-    [disabled]="isButtonDisabled(context.columnConfig, context.row)"
-  >
+  <button class="action-column" ene-button [disabled]="isButtonDisabled(context.columnConfig, context.row)">
     {{ context.columnConfig.actionLabel }}
   </button>
 </ng-template>

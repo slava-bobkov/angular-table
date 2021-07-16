@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ImageColumnComponent } from './image-column.component';
+import { ImageColumnComponent } from "./image-column.component";
 
-describe('ImageColumnComponent', () => {
+describe("ImageColumnComponent", () => {
   let component: ImageColumnComponent;
   let fixture: ComponentFixture<ImageColumnComponent>;
 
@@ -18,7 +18,7 @@ describe('ImageColumnComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

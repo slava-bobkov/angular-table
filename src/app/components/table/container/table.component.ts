@@ -10,29 +10,32 @@ import {
   Optional,
   Output,
   ViewChild
-} from '@angular/core';
-import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
-import { asyncScheduler, BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { map, observeOn, switchMap, tap } from 'rxjs/operators';
-import { TableDataSource } from '../classes/table-data-source';
-import { TablePaginatorComponent } from '../components/table-paginator/table-paginator.component';
-import { TablePagingService } from '../classes/table-paging-service';
-import { TableColumnConfig, TableAction, TablePagingConfig } from '../table.interfaces';
-import { TABLE_PAGING_SERVICE } from '../table.tokens';
+} from "@angular/core";
+import { MatSort } from "@angular/material/sort";
+import { MatTable } from "@angular/material/table";
+import { asyncScheduler, BehaviorSubject, combineLatest, Observable, Subscription } from "rxjs";
+import { map, observeOn, switchMap, tap } from "rxjs/operators";
+import { TableDataSource } from "../classes/table-data-source";
+import { TablePaginatorComponent } from "../components/table-paginator/table-paginator.component";
+import { TablePagingService } from "../classes/table-paging-service";
+import { TableColumnConfig, TableAction, TablePagingConfig } from "../table.interfaces";
+import { TABLE_PAGING_SERVICE } from "../table.tokens";
 
 @Component({
-  selector: 'ngmy-table',
-  templateUrl: './table.component.html',
-  styleUrls: ['../styles/table.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: "ngmy-table",
+  templateUrl: "./table.component.html",
+  styleUrls: ["../styles/table.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: "ngmy-table"
+  }
 })
 export class TableComponent<T extends { [key: string]: any } = object>
   implements AfterViewInit, OnDestroy
 {
-  @Input() public sortActive: string = '';
-  @Input() public sortDirection: 'desc' | 'asc' = 'desc';
-  @Input('disableSort')
+  @Input() public sortActive: string = "";
+  @Input() public sortDirection: "desc" | "asc" = "desc";
+  @Input("disableSort")
   public set sortDisabled(disabled: boolean) {
     this._sortDisabled = disabled;
     this.sortRefSubject.next(disabled);
@@ -54,19 +57,20 @@ export class TableComponent<T extends { [key: string]: any } = object>
     this.footerHidden = !config.find(({ footer }) => !!footer);
     this.dataSource.columnsConfig = config;
   }
-  public _columnsConfig!: Array<TableColumnConfig>;
+  public _columnsConfig: Array<TableColumnConfig> = [];
 
-  @Input() public nestedColumnsConfig: Array<TableColumnConfig> | undefined;
+  @Input() public nestedColumnsConfig: Array<TableColumnConfig> = [];
 
   @Input()
   public set data(data: Array<T> | undefined) {
     this.dataSubject.next(data);
   }
 
-  @Input('disableFilter') public filterDisabled: boolean = false;
-  @Input('filterLabel') public filterLabel: string = 'FRAMEWORK.TABLE.FILTER';
-  @Input('hideHeader') public headerHidden: boolean = false;
-  @Input('expandable') public multiTemplateDataRows: boolean = false;
+  @Input("hideFilter") public filterHidden: boolean = false;
+  @Input("filterLabel") public filterLabel: string = "FRAMEWORK.TABLE.FILTER";
+  @Input("hideHeader") public headerHidden: boolean = false;
+  @Input("expandable") public multiTemplateDataRows: boolean = false;
+  @Input() public fixedLayout: boolean = false;
   @Input() public scrollableX: boolean = false;
   @Input() public scrollableY: boolean = false;
 

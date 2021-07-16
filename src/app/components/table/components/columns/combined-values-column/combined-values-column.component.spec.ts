@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { CombinedValuesColumnComponent } from './combined-values-column.component';
+import { CombinedValuesColumnComponent } from "./combined-values-column.component";
 
-describe('CombinedValuesColumnComponent', () => {
+describe("CombinedValuesColumnComponent", () => {
   let component: CombinedValuesColumnComponent;
   let fixture: ComponentFixture<CombinedValuesColumnComponent>;
 
@@ -18,7 +18,7 @@ describe('CombinedValuesColumnComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

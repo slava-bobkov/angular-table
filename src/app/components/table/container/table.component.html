@@ -1,5 +1,5 @@
 <table-filter
-  *ngIf="!filterDisabled"
+  *ngIf="!filterHidden"
   [filterLabel]="filterLabel | translate"
   (filterChanged)="onFilterChange($event)"
 ></table-filter>
@@ -7,37 +7,41 @@
   <table
     mat-table
     matSort
+    [fixedLayout]="fixedLayout || multiTemplateDataRows || scrollableX || scrollableY"
     [matSortDisabled]="_sortDisabled"
     [matSortDirection]="sortDirection"
     [matSortActive]="sortActive"
     [multiTemplateDataRows]="multiTemplateDataRows"
     [dataSource]="dataSource"
   >
+    <!-- columns config -->
     <ng-container *ngFor="let columnConfig of _columnsConfig; trackBy: trackById">
       <ngmy-column-composer
-        [columnConfig]="columnConfig"
         [hideHeader]="headerHidden"
         [hideFooter]="footerHidden"
         [sortDisabled]="_sortDisabled"
+        [columnConfig]="columnConfig"
         (columnAction)="tableAction.emit($event)"
       ></ngmy-column-composer>
     </ng-container>
-    <ng-container *ngIf="!!nestedColumnsConfig">
+    <!-- optional header -->
+    <ng-container *ngIf="!headerHidden">
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    </ng-container>
+    <!-- rows -->
+    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
+    <!-- optional footer -->
+    <ng-container *ngIf="!footerHidden">
+      <tr mat-footer-row *matFooterRowDef="columnsToDisplay"></tr>
+    </ng-container>
+    <!-- nested config -->
+    <ng-container *ngIf="!!nestedColumnsConfig && multiTemplateDataRows">
       <ngmy-nested-table-column
         [name]="'nested-table'"
         [columnsConfig]="nestedColumnsConfig"
         (columnAction)="tableAction.emit($event)"
       ></ngmy-nested-table-column>
-    </ng-container>
-    <ng-container *ngIf="!headerHidden">
-      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
-    </ng-container>
-    <tr mat-row *matRowDef="let row; columns: columnsToDisplay"></tr>
-    <ng-container *ngIf="!!nestedColumnsToDisplay && multiTemplateDataRows">
-      <tr mat-row *matRowDef="let row; columns: ['nested-table']"></tr>
-    </ng-container>
-    <ng-container *ngIf="!footerHidden">
-      <tr mat-footer-row *matFooterRowDef="columnsToDisplay"></tr>
+      <tr class="nested-row" mat-row *matRowDef="let row; columns: ['nested-table']"></tr>
     </ng-container>
   </table>
 </div>

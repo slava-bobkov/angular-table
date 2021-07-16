@@ -1,4 +1,4 @@
-import { EventEmitter } from '@angular/core';
+import { EventEmitter } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
@@ -10,30 +10,31 @@ import {
   Type,
   ViewChild,
   ViewEncapsulation
-} from '@angular/core';
+} from "@angular/core";
 import {
   MatCellDef,
   MatColumnDef,
   MatFooterCellDef,
   MatHeaderCellDef
-} from '@angular/material/table';
-import { Pure } from 'src/app/decorators/pure';
-import { TableComponent } from '../../container/table.component';
-import { TableService } from '../../services/table.service';
-import {
-  TABLE_COLUMN_CONTEXT,
-  TABLE_COLUMNS,
-  TABLE_COLUMNS_COMPONENTS
-} from '../../table.constants';
-import { TableColumn, TableColumnConfig, TableAction } from '../../table.interfaces';
+} from "@angular/material/table";
+import { Pure } from "src/app/decorators/pure";
+import { TableComponent } from "../../container/table.component";
+import { TableService } from "../../services/table.service";
+import { TABLE_COLUMNS } from "../../table.constants";
+import { TableColumn, TableColumnConfig, TableAction } from "../../table.interfaces";
 
 @Component({
-  selector: 'ngmy-column-composer',
-  templateUrl: './column-composer.component.html',
+  selector: "ngmy-column-composer",
+  templateUrl: "./column-composer.component.html",
+  styleUrls: ["../../styles/column.scss"],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ColumnComposerComponent<T extends { [key: string]: any } = object> implements OnInit {
+export class ColumnComposerComponent implements OnInit {
+  @Input() public sortDisabled: boolean = true;
+  @Input("hideHeader") public headerHidden: boolean = false;
+  @Input("hideFooter") public footerHidden: boolean = true;
+
   @Input()
   public set columnConfig(config: TableColumnConfig) {
     this._columnConfig = config;
@@ -41,23 +42,15 @@ export class ColumnComposerComponent<T extends { [key: string]: any } = object> 
   }
   public _columnConfig!: TableColumnConfig;
 
-  @Input() public sortDisabled: boolean = true;
-  @Input('hideHeader') public headerHidden: boolean = false;
-  @Input('hideFooter') public footerHidden: boolean = true;
-
   @Output() public readonly columnAction = new EventEmitter<TableAction<any>>();
 
-  @ViewChild(MatColumnDef, { static: true }) public columnDef!: MatColumnDef;
-  @ViewChild(MatHeaderCellDef, { static: true }) public headerCellDef!: MatHeaderCellDef;
-  @ViewChild(MatFooterCellDef, { static: true }) public footerCellDef!: MatFooterCellDef;
-  @ViewChild(MatCellDef, { static: true }) public cellDef!: MatCellDef;
-
-  public component: Type<unknown> | undefined;
-  public componentInjector: Injector | undefined;
+  @ViewChild(MatColumnDef, { static: true }) public readonly columnDef!: MatColumnDef;
+  @ViewChild(MatHeaderCellDef, { static: true }) public readonly headerCellDef!: MatHeaderCellDef;
+  @ViewChild(MatFooterCellDef, { static: true }) public readonly footerCellDef!: MatFooterCellDef;
+  @ViewChild(MatCellDef, { static: true }) public readonly cellDef!: MatCellDef;
 
   constructor(
     @Optional() private readonly table: TableComponent,
-    private readonly injector: Injector,
     private readonly tableService: TableService
   ) {}
 
@@ -72,41 +65,16 @@ export class ColumnComposerComponent<T extends { [key: string]: any } = object> 
     );
   }
 
-  public ngOnDestroy(): void {
-    this.tableService.removeColumnDef(this.table, this.columnDef);
-  }
-
   public isSortDisabled(disabled: boolean, type: TableColumn): boolean {
     return disabled || type === TABLE_COLUMNS.Action || type === TABLE_COLUMNS.Icon;
   }
 
   public isClickable(type: TableColumn): boolean {
-    return type === 'action';
+    return type === "action";
   }
 
   @Pure
   public getColumnClasses({ type, classes = [] }: TableColumnConfig): Array<string> {
-    return ([] as Array<string>).concat(`${type}-cell`, classes);
-  }
-
-  @Pure
-  public getComponent({ type, customComponent }: TableColumnConfig): Type<any> {
-    return type === 'custom' ? customComponent! : TABLE_COLUMNS_COMPONENTS.get(type)!;
-  }
-
-  @Pure
-  public getInjector(columnConfig: TableColumnConfig | undefined, row: T | undefined): Injector {
-    return Injector.create({
-      parent: this.injector,
-      providers: [
-        {
-          provide: TABLE_COLUMN_CONTEXT,
-          useValue: {
-            columnConfig,
-            row
-          }
-        }
-      ]
-    });
+    return ([] as Array<string>).concat(`${type}-column`, classes);
   }
 }

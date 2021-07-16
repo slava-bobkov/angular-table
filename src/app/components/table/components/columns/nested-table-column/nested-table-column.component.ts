@@ -11,15 +11,15 @@ import {
   SkipSelf,
   ViewChild,
   ViewEncapsulation
-} from '@angular/core';
-import { MatCellDef, MatColumnDef } from '@angular/material/table';
-import { TableComponent } from '../../../container/table.component';
-import { TableService } from '../../../services/table.service';
-import { TableAction, TableColumnConfig } from '../../../table.interfaces';
+} from "@angular/core";
+import { MatCellDef, MatColumnDef } from "@angular/material/table";
+import { TableComponent } from "../../../container/table.component";
+import { TableService } from "../../../services/table.service";
+import { TableAction, TableColumnConfig } from "../../../table.interfaces";
 
 @Component({
-  selector: 'ngmy-nested-table-column',
-  templateUrl: './nested-table-column.component.html',
+  selector: "ngmy-nested-table-column",
+  templateUrl: "./nested-table-column.component.html",
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -38,10 +38,7 @@ export class NestedTableColumnComponent implements OnInit, OnDestroy {
   @ViewChild(MatColumnDef, { static: true }) public columnDef!: MatColumnDef;
   @ViewChild(MatCellDef, { static: true }) public cellDef!: MatCellDef;
 
-  constructor(
-    @Optional() private readonly table: TableComponent,
-    private readonly tableService: TableService
-  ) {}
+  constructor(@Optional() private readonly table: TableComponent, private readonly tableService: TableService) {}
 
   public ngOnInit(): void {
     this.tableService.syncColumnDef(this.columnDef, this._name);

@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { TableFilterComponent } from './table-filter.component';
+import { TableFilterComponent } from "./table-filter.component";
 
-describe('TableFilterComponent', () => {
+describe("TableFilterComponent", () => {
   let component: TableFilterComponent;
   let fixture: ComponentFixture<TableFilterComponent>;
 
@@ -18,7 +18,7 @@ describe('TableFilterComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { BadgeColumnComponent } from "./badge-column.component";
+import { ColumnResolverComponent } from "./column-resolver.component";
 
-describe("BadgeColumnComponent", () => {
-  let component: BadgeColumnComponent;
-  let fixture: ComponentFixture<BadgeColumnComponent>;
+describe("ColumnResolverComponent", () => {
+  let component: ColumnResolverComponent<any>;
+  let fixture: ComponentFixture<ColumnResolverComponent<any>>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BadgeColumnComponent]
+      declarations: [ColumnResolverComponent]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BadgeColumnComponent);
+    fixture = TestBed.createComponent(ColumnResolverComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

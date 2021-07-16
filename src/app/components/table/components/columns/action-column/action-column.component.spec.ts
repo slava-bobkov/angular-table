@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ActionColumnComponent } from './action-column.component';
+import { ActionColumnComponent } from "./action-column.component";
 
-describe('ActionColumnComponent', () => {
+describe("ActionColumnComponent", () => {
   let component: ActionColumnComponent;
   let fixture: ComponentFixture<ActionColumnComponent>;
 
@@ -18,7 +18,7 @@ describe('ActionColumnComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

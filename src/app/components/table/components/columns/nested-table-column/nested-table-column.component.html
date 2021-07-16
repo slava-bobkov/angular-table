@@ -2,8 +2,9 @@
   <td class="nested-table-column" mat-cell *matCellDef="let row" [attr.colspan]="attrColspan">
     <ngmy-table
       class="nested-table"
-      [disableFilter]="true"
+      [hideFilter]="true"
       [hideHeader]="true"
+      [fixedLayout]="true"
       [columnsConfig]="columnsConfig"
       [data]="row[_name]"
       (tableAction)="columnAction.emit($event)"

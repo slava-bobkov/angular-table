@@ -1,5 +1,5 @@
-import { Type } from '@angular/core';
-import { TABLE_COLUMNS } from './table.constants';
+import { Type } from "@angular/core";
+import { TABLE_COLUMNS } from "./table.constants";
 
 export interface TableColumnConfig {
   /** Corresponds to a key of the objects in the data array */
@@ -33,7 +33,7 @@ export interface TableColumnConfig {
   actionLabel?: string;
   /** Footer options */
   footer?: {
-    type: 'text' | 'value';
+    type: "text" | "value";
     key?: string;
     value?: number;
   };
@@ -72,7 +72,7 @@ export interface TablePagingConfig {
    * Types between full functionality of the pagination (first, last buttons, options) and compact
    * "compact" is default type
    */
-  type?: 'compact' | 'full';
+  type?: "compact" | "full";
   length?: number;
   pageSizeOptions?: Array<number>;
   pageIndex?: number;

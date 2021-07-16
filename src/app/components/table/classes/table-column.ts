@@ -1,6 +1,7 @@
-import { Directive, Inject } from '@angular/core';
-import { TABLE_COLUMN_CONTEXT } from '../table.constants';
-import { TableColumnContext } from '../table.interfaces';
+import { Directive, Inject, InjectionToken } from "@angular/core";
+import { TableColumnContext } from "../table.interfaces";
+
+export const TABLE_COLUMN_CONTEXT = new InjectionToken<TableColumnContext>("Context for column");
 
 @Directive()
 export class TableColumn {

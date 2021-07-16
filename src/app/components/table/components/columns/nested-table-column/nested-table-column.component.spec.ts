@@ -1,16 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { NestedTableColumnComponent } from './nested-table-column.component';
+import { NestedTableColumnComponent } from "./nested-table-column.component";
 
-describe('NestedTableColumnComponent', () => {
+describe("NestedTableColumnComponent", () => {
   let component: NestedTableColumnComponent;
   let fixture: ComponentFixture<NestedTableColumnComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NestedTableColumnComponent ]
-    })
-    .compileComponents();
+      declarations: [NestedTableColumnComponent]
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +18,7 @@ describe('NestedTableColumnComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

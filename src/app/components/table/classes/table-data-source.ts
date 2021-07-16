@@ -1,10 +1,8 @@
-import { MatTableDataSource } from '@angular/material/table';
-import { TableColumnConfig } from '../table.interfaces';
+import { MatTableDataSource } from "@angular/material/table";
+import { TableColumnConfig } from "../table.interfaces";
 
-export class TableDataSource<
-  T extends { [key: string]: any } = object
-> extends MatTableDataSource<T> {
-  private propertiesAccessorsMap!: ReadonlyMap<string, TableColumnConfig['propertyAccessor']>;
+export class TableDataSource<T extends { [key: string]: any } = object> extends MatTableDataSource<T> {
+  private propertiesAccessorsMap!: ReadonlyMap<string, TableColumnConfig["propertyAccessor"]>;
   private _columnsConfig: Array<TableColumnConfig> = [];
 
   constructor(initialData: Array<T> = []) {
@@ -63,7 +61,7 @@ export class TableDataSource<
         // particular is "White up-pointing triangle with dot" from
         // https://en.wikipedia.org/wiki/List_of_Unicode_characters
         return `${currentTerm}${value}◬`;
-      }, '')
+      }, "")
       .toLowerCase();
 
     // Transform the filter by converting it to lowercase and removing whitespace.
