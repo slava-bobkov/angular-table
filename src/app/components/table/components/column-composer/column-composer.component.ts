@@ -2,12 +2,10 @@ import { EventEmitter } from "@angular/core";
 import {
   ChangeDetectionStrategy,
   Component,
-  Injector,
   Input,
   OnInit,
   Optional,
   Output,
-  Type,
   ViewChild,
   ViewEncapsulation
 } from "@angular/core";
