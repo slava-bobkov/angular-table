@@ -1,5 +1,5 @@
 <ngmy-header></ngmy-header>
-<ngmy-table
+<!-- <ngmy-table
   [disableSort]="false"
   [hideHeader]="false"
   [expandable]="true"
@@ -8,4 +8,16 @@
   [pagingConfig]="{ pageSize: 10 }"
   [data]="data"
   (tableAction)="onTableAction($event)"
-></ngmy-table>
+></ngmy-table> -->
+<!-- <button (click)="onClick()">Click</button> -->
+
+<tpm-carousel>
+  <tpm-carousel-inner>
+    <tpm-carousel-item *ngFor="let item of list$ | async">
+      <div class="container">
+        {{ item }}
+      </div>
+    </tpm-carousel-item>
+  </tpm-carousel-inner>
+  <tpm-carousel-indicators></tpm-carousel-indicators>
+</tpm-carousel>

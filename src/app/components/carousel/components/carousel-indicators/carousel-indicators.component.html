@@ -1,0 +1,12 @@
+<div class="carousel-indicators">
+  active: {{ active }}, length: {{ (items$ | async)?.length }}
+  <ng-container *ngFor="let item of items$ | async; let index = index">
+    <button
+      type="button"
+      [attr.data-button-target]="index"
+      [attr.aria-current]="active === index"
+      [class.active]="active === index"
+      (click)="onClick(index)"
+    ></button>
+  </ng-container>
+</div>

@@ -1,0 +1,21 @@
+.carousel-indicators [data-button-target] {
+  --tpm-carousel-indicator-color: var(--ene-color-grey-200, #222222);
+
+  cursor: pointer;
+  box-sizing: content-box;
+  flex: 0 1 auto;
+  width: 8px;
+  height: 8px;
+  margin-right: 4px;
+  margin-left: 4px;
+  text-indent: -999px;
+  padding: 0;
+  background: transparent;
+  background-clip: padding-box;
+  border: 2px solid var(--tpm-carousel-indicator-color);
+  border-radius: 50%;
+
+  &.active {
+    background: var(--tpm-carousel-indicator-color);
+  }
+}

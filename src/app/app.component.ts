@@ -1,9 +1,13 @@
-import { Component } from "@angular/core";
+import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { of } from "rxjs";
+import { delay } from "rxjs/operators";
 import { TableColumnConfig, TableAction } from "./components/table/table.interfaces";
 
 @Component({
   selector: "ngmy-root",
-  templateUrl: "./app.component.html"
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   public columnsConfig: Array<TableColumnConfig> = [
@@ -734,7 +738,16 @@ export class AppComponent {
     }
   ];
 
+  public readonly list$ = of(["First", "Second", "Third", "Fourth", "Fifth", "Six", "Seven"])
+    .pipe
+    // delay(1000)
+    ();
+
   public onTableAction(event: TableAction<any>): void {
     console.log(event);
+  }
+
+  public onClick(): void {
+    console.log();
   }
 }
