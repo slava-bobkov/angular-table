@@ -1,8 +1,6 @@
 import { animate, group, query, state, style, transition, trigger } from "@angular/animations";
 
 export function toLeft(_: any, toState: any, element: any, params: any): boolean {
-  console.log("toLeft", _, toState, element, params);
-
   return toState.left === true;
 }
 export function toRight(_: any, toState: any): boolean {

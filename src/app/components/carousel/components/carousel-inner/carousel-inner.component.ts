@@ -1,5 +1,5 @@
 import {
-  AfterViewInit,
+  AfterContentInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -25,12 +25,12 @@ import { CarouselItemComponent } from "../carousel-item/carousel-item.component"
     class: "carousel-inner"
   }
 })
-export class CarouselInnerComponent implements AfterViewInit, OnDestroy {
+export class CarouselInnerComponent implements AfterContentInit, OnDestroy {
   @ContentChildren(CarouselItemComponent)
   private readonly contentItems!: QueryList<CarouselItemComponent>;
   private prevContentItems!: QueryList<CarouselItemComponent>;
 
-  public activeIndex: number | undefined;
+  public active: number | undefined;
   public slide = { left: true };
 
   private readonly destroy$ = new Subject<void>();
@@ -40,19 +40,19 @@ export class CarouselInnerComponent implements AfterViewInit, OnDestroy {
     private readonly cdr: ChangeDetectorRef
   ) {}
 
-  public ngAfterViewInit(): void {
+  public ngAfterContentInit(): void {
     this.setItems();
 
-    this.contentItems.changes.pipe(takeUntil(this.destroy$)).subscribe((contentItems) => {
+    this.contentItems.changes.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.setItems();
     });
 
     this.carouselService.state$.pipe(takeUntil(this.destroy$)).subscribe((state) => {
-      const nextIndex = state?.activeItemIndex;
-
-      if (this.activeIndex !== nextIndex) {
+      if (this.active !== state?.active) {
         this.slide = { left: state?.direction === "next" };
-        this.activeIndex = nextIndex;
+        this.active = state?.active;
+
+        this.cdr.markForCheck();
       }
     });
   }
@@ -63,7 +63,7 @@ export class CarouselInnerComponent implements AfterViewInit, OnDestroy {
   }
 
   public setItems(): void {
-    if (this.prevContentItems !== this.contentItems) {
+    if (this.prevContentItems?.toArray() !== this.contentItems?.toArray()) {
       this.prevContentItems = this.contentItems;
       this.carouselService.setItems(this.contentItems.toArray());
     }

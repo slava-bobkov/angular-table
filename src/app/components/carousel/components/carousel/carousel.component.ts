@@ -1,7 +1,5 @@
 import {
-  AfterContentInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   Inject,
@@ -26,11 +24,10 @@ import { CarouselService } from "../../services/carousel.service";
     class: "carousel slide"
   }
 })
-export class CarouselComponent implements OnInit, OnDestroy, AfterContentInit {
-  @Input() public activeIndex = 0;
-  @Input() public direction: "next" | "prev" = "next";
+export class CarouselComponent implements OnInit, OnDestroy {
+  @Input() public active = 0;
   @Input() public interval = 0;
-  @Input() public transition: "slide" = "slide";
+  @Input() public direction: "next" | "prev" = "next";
 
   @Output() private readonly itemChange = new EventEmitter<number>();
 
@@ -42,22 +39,17 @@ export class CarouselComponent implements OnInit, OnDestroy, AfterContentInit {
   constructor(
     @Inject(CarouselConfig)
     private readonly config: CarouselConfig,
-    private readonly carouselService: CarouselService,
-    private readonly cdr: ChangeDetectorRef
+    private readonly carouselService: CarouselService
   ) {
     Object.assign(this, this.config);
   }
 
   public ngOnInit(): void {
-    this.carouselService.carouselIndex$.pipe(takeUntil(this.destroy$)).subscribe((nextItem) => {
-      if ("active" in nextItem) {
-        this.itemChange.emit(nextItem.active);
-      }
+    this.carouselService.state$.pipe(takeUntil(this.destroy$)).subscribe((state) => {
+      this.itemChange.emit(state.active);
 
       this.activeItemInterval =
-        typeof nextItem.interval === "number" && nextItem.interval > -1
-          ? nextItem.interval
-          : this.interval;
+        typeof state.interval === "number" && state.interval > -1 ? state.interval : this.interval;
 
       this.setTimer();
     });
@@ -68,10 +60,6 @@ export class CarouselComponent implements OnInit, OnDestroy, AfterContentInit {
     this.destroy$.complete();
   }
 
-  public ngAfterContentInit(): void {
-    this.carouselService.setState({ activeItemIndex: this.activeIndex });
-  }
-
   private setTimer(): void {
     const interval = this.activeItemInterval || 0;
 
@@ -80,7 +68,7 @@ export class CarouselComponent implements OnInit, OnDestroy, AfterContentInit {
     if (interval > 0) {
       this.timerId = setTimeout(() => {
         this.carouselService.setState({
-          activeItemIndex: this.carouselService.direction(this.direction)
+          active: this.carouselService.direction(this.direction)
         });
       }, interval);
     }

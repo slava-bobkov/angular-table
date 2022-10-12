@@ -1,38 +1,33 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { distinctUntilKeyChanged, map, tap } from "rxjs/operators";
-import { ICarouselIndex, ICarouselState } from "../carousel.type";
+import { ICarouselState } from "../carousel.type";
 import { CarouselItemComponent } from "../components/carousel-item/carousel-item.component";
 
 @Injectable()
 export class CarouselService {
   public readonly state$ = new BehaviorSubject<ICarouselState>({
-    activeItemIndex: -1,
+    active: 0,
+    interval: -1,
     items: [],
     direction: "next"
   });
-  public readonly items$ = this.state$.asObservable().pipe(
-    distinctUntilKeyChanged("items"),
-    map(({ items }) => items)
-  );
-  public readonly carouselIndex$ = new BehaviorSubject<ICarouselIndex>({});
 
   public setState(state: ICarouselState) {
     const prevState = { ...this.state$.getValue() };
-    const nextState = { ...this.state$.getValue(), ...state };
+    let nextState = { ...this.state$.getValue(), ...state };
+
+    if (prevState.active !== nextState.active) {
+      const active = nextState.active || 0;
+      const interval = (nextState.items && nextState.items[active]?.interval) || -1;
+
+      nextState = {
+        ...nextState,
+        active,
+        interval
+      };
+    }
 
     this.state$.next(nextState);
-
-    if (prevState.activeItemIndex !== nextState.activeItemIndex) {
-      const activeItemIndex = nextState.activeItemIndex || 0;
-      const itemInterval = (nextState.items && nextState.items[activeItemIndex]?.interval) || -1;
-
-      this.setIndex({
-        active: nextState.activeItemIndex,
-        interval: itemInterval,
-        lastItemIndex: (nextState.items?.length ?? 0) - 1
-      });
-    }
   }
 
   public setItems(newItems: any): void {
@@ -41,7 +36,7 @@ export class CarouselService {
         item.index = index;
       });
 
-      this.setState({ items: newItems });
+      this.setState({ items: newItems, active: 0 });
     } else {
       this.reset();
     }
@@ -50,29 +45,26 @@ export class CarouselService {
   public direction(direction: "next" | "prev" = "next"): number {
     this.setState({ direction });
 
-    const { activeItemIndex = -1, items } = this.state$.getValue();
+    const { active = -1, items } = this.state$.getValue();
     const itemsCount = items?.length ?? 0;
 
     if (itemsCount > 0) {
       return direction === "next"
-        ? activeItemIndex === itemsCount - 1
+        ? active === itemsCount - 1
           ? 0
-          : activeItemIndex + 1
-        : activeItemIndex === 0
+          : active + 1
+        : active === 0
         ? itemsCount - 1
-        : activeItemIndex - 1;
+        : active - 1;
     } else {
       return 0;
     }
   }
 
-  public setIndex(index: ICarouselIndex): void {
-    this.carouselIndex$.next(index);
-  }
-
   public reset(): void {
     this.setState({
-      activeItemIndex: -1,
+      active: 0,
+      interval: -1,
       items: [],
       direction: "next"
     });

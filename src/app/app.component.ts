@@ -738,16 +738,24 @@ export class AppComponent {
     }
   ];
 
-  public readonly list$ = of(["First", "Second", "Third", "Fourth", "Fifth", "Six", "Seven"])
-    .pipe
-    // delay(1000)
-    ();
+  public list$: any = of(["First", "Second", "Third", "Fourth", "Fifth", "Six", "Seven"]).pipe(
+    delay(1000)
+  );
+  private toggle = false;
 
   public onTableAction(event: TableAction<any>): void {
     console.log(event);
   }
 
   public onClick(): void {
-    console.log();
+    this.toggle = !this.toggle;
+
+    if (this.toggle) {
+      this.list$ = of([1, 2, 3, 4, 5, 6]);
+    } else {
+      this.list$ = of(["First", "Second", "Third", "Fourth", "Fifth", "Six", "Seven"]).pipe(
+        delay(1000)
+      );
+    }
   }
 }
